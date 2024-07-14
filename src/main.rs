@@ -4,6 +4,7 @@ extern crate sdl2;
 use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
 use sdl2::pixels::Color;
+use sdl2::render::{Canvas, Texture, TextureCreator};
 use std::thread::sleep;
 use std::time::Duration;
 
@@ -22,12 +23,17 @@ pub fn main() {
 
     let mut canvas = window
         .into_canvas()
+        .target_texture()
+        .present_vsync()
         .build()
         .expect("Failed to convert window into canvas");
+
+    let texture_creator: TextureCreator<_> = canvas.texture_creator();  
 
     canvas.set_draw_color(Color::RGB(255, 0, 0));
     canvas.clear();
     canvas.present();
+
     let mut event_pump = sdl_context.event_pump().expect("Failed to get SDL event pump");
 
     'running: loop {
