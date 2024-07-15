@@ -73,7 +73,7 @@ pub fn main() {
         texture.clear();
     });
 
-    canvas.set_draw_color(Color::RGB(255, 0, 0));
+    canvas.set_draw_color(Color::RGB(255, 255, 255));
     canvas.clear();
     canvas.present();
 
@@ -98,7 +98,7 @@ pub fn main() {
                 _ => {}
             }
         }
-        canvas.set_draw_color(Color::RGB(255, 0, 0));
+        canvas.set_draw_color(Color::RGB(0, 0, 0));
         canvas.clear();
 
         let display_green = match timer.elapsed() {
