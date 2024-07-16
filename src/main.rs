@@ -1,14 +1,16 @@
-#[allow(unused, dead_code)]
+#[allow(unused, dead_code, unused_mut, unused_must_use)]
 extern crate sdl2;
 
 use sdl2::event::Event;
+use sdl2::image::{LoadTexture, INIT_JPG, INIT_PNG};
 use sdl2::keyboard::Keycode;
 use sdl2::pixels::Color;
 use sdl2::rect::Rect;
 use sdl2::render::{Canvas, Texture, TextureCreator};
 use sdl2::video::{Window, WindowContext};
-use sdl2::image::{LoadTexture, INIT_JPG, INIT_PNG};
 
+use std::fs::File;
+use std::io::{self, Read, Write};
 use std::thread::sleep;
 use std::time::{Duration, SystemTime};
 
@@ -42,6 +44,20 @@ fn create_texture_rect<'a>(
     }
 }
 
+fn write_into_file(content: &str, file_name: &str) -> io::Result<()> {
+    let mut f = File::create(file_name)?;
+    f.write_all(content.as_bytes())
+}
+
+fn read_from_file(file_name: &str) -> io::Result<String> {
+    let mut f = File::open(file_name)?;
+    let mut content = String::new();
+    f.read_to_string(&mut content)?;
+    Ok(content)
+}
+
+
+
 pub fn main() {
     let sdl_context = sdl2::init().expect("SDL Inicialization failed");
     let video_subsystem = sdl_context
@@ -49,7 +65,7 @@ pub fn main() {
         .expect("Couldn't get SDL video subsystem");
 
     let window = video_subsystem
-        .window("Tetris", 800, 600)
+        .window("Tetris", 1280, 720)
         .position_centered()
         .opengl()
         .build()
@@ -61,8 +77,12 @@ pub fn main() {
         .present_vsync()
         .build()
         .expect("Failed to convert window into canvas");
+    sdl2::image::init(INIT_JPG | INIT_PNG).expect("Couldnt initialize image context");
 
     let texture_creator: TextureCreator<_> = canvas.texture_creator();
+    let image_texture = texture_creator
+        .load_texture("assets/my_photo.jpg")
+        .expect("Couldnt load the image");
 
     let mut square_texture: Texture = texture_creator
         .create_texture_target(None, TEXTURE_SIZE, TEXTURE_SIZE)
@@ -77,9 +97,21 @@ pub fn main() {
     canvas.clear();
     canvas.present();
 
-    let mut blue_square = create_texture_rect(&mut canvas, &texture_creator, TextureColor::Blue, TEXTURE_SIZE).expect("Failed to create a blue texture");
+    let mut blue_square = create_texture_rect(
+        &mut canvas,
+        &texture_creator,
+        TextureColor::Blue,
+        TEXTURE_SIZE,
+    )
+    .expect("Failed to create a blue texture");
 
-    let mut green_square = create_texture_rect(&mut canvas, &texture_creator, TextureColor::Green, TEXTURE_SIZE).expect("Falied to create a green texture");
+    let mut green_square = create_texture_rect(
+        &mut canvas,
+        &texture_creator,
+        TextureColor::Green,
+        TEXTURE_SIZE,
+    )
+    .expect("Falied to create a green texture");
 
     let timer = SystemTime::now();
 
@@ -100,12 +132,13 @@ pub fn main() {
         }
         canvas.set_draw_color(Color::RGB(0, 0, 0));
         canvas.clear();
+        canvas
+            .copy(&image_texture, None, None)
+            .expect("Render failed");
 
         let display_green = match timer.elapsed() {
             Ok(elapsed) => elapsed.as_secs() % 2 == 0,
-            Err(_) => {
-                true
-            }
+            Err(_) => true,
         };
 
         let square_texture = if display_green {
