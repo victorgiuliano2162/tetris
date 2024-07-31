@@ -79,7 +79,7 @@ fn load_highscores_and_lines() -> Option<(Vec<u32>, Vec<u32>)> {
         let mut lines =  content.splitn(2, "\n").map(|line| line_to_slice(line)).collect::<Vec<_>>();
 
         if lines.len() == 2 {
-            let (number_lines, highscores) = (lines.pop.unwrap()), lines.pop.unwrap();
+            let (number_lines, highscores) = (lines.pop().unwrap(), lines.pop().unwrap());
             Some((highscores, number_lines))
         } else {
             None
