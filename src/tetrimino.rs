@@ -113,3 +113,22 @@ impl TetriminoGenerator for TetriminoL {
         }
     }
 }
+
+struct TetriminoO;
+
+impl TetriminoGenerator for TetriminoO {
+    fn new() -> Tetrimino {
+        Tetrimino {
+            states: vec![
+                vec![
+                    vec![4, 4, 0, 0],
+                    vec![4, 4, 0, 0],
+                    vec![0, 0, 0, 0],
+                    vec![0, 0, 0, 0],
+                ]],
+            x: 5,
+            y: 0,
+            current_state: 0,
+        }
+    }
+}
