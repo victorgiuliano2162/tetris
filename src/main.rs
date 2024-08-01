@@ -1,6 +1,8 @@
 #[allow(unused, dead_code, unused_mut, unused_must_use)]
 extern crate sdl2;
 
+mod tetrimino;
+
 use sdl2::event::Event;
 use sdl2::image::{LoadTexture, INIT_JPG, INIT_PNG};
 use sdl2::keyboard::Keycode;
@@ -15,6 +17,8 @@ use std::thread::sleep;
 use std::time::{Duration, SystemTime};
 
 const TEXTURE_SIZE: u32 = 32;
+
+
 
 #[derive(Clone, Copy)]
 enum TextureColor {
@@ -67,16 +71,25 @@ fn slice_to_string(slice: &[u32]) -> String {
 fn save_highscores_and_lines(highscores: &[u32], number_of_lines: &[u32]) -> bool {
     let s_highscores = slice_to_string(highscores);
     let s_number_of_lines = slice_to_string(number_of_lines);
-    write_into_file(&format!("{}\n{}\n", s_highscores, s_number_of_lines), "scores.txt").is_ok()
+    write_into_file(
+        &format!("{}\n{}\n", s_highscores, s_number_of_lines),
+        "scores.txt",
+    )
+    .is_ok()
 }
 
 fn line_to_slice(line: &str) -> Vec<u32> {
-    line.split(" ").filter_map(|nb| nb.parse::<u32>().ok()).collect()
+    line.split(" ")
+        .filter_map(|nb| nb.parse::<u32>().ok())
+        .collect()
 }
 
 fn load_highscores_and_lines() -> Option<(Vec<u32>, Vec<u32>)> {
     if let Ok(content) = read_from_file("scores.txt") {
-        let mut lines =  content.splitn(2, "\n").map(|line| line_to_slice(line)).collect::<Vec<_>>();
+        let mut lines = content
+            .splitn(2, "\n")
+            .map(|line| line_to_slice(line))
+            .collect::<Vec<_>>();
 
         if lines.len() == 2 {
             let (number_lines, highscores) = (lines.pop().unwrap(), lines.pop().unwrap());
