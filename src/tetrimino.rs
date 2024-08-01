@@ -13,7 +13,7 @@ trait TetriminoGenerator {
 }
 
 struct TetriminoI;
-
+//its looks like a snake
 impl TetriminoGenerator for TetriminoI {
     fn new() -> Tetrimino {
         Tetrimino {
@@ -29,6 +29,44 @@ impl TetriminoGenerator for TetriminoI {
                     vec![0, 1, 0, 0],
                     vec![0, 1, 0, 0],
                     vec![0, 1, 0, 0],
+                ],
+            ],
+            x: 4,
+            y: 0,
+            current_state: 0,
+        }
+    }
+}
+
+struct TetriminoJ;
+//its just an J or a L depending on wich perspective is observed
+impl TetriminoGenerator for TetriminoJ {
+    fn new() -> Tetrimino {
+        Tetrimino {
+            states: vec![
+                vec![
+                    vec![2, 2, 2, 0],
+                    vec![2, 0, 0, 0],
+                    vec![0, 0, 0, 0],
+                    vec![0, 0, 0, 0],
+                ],
+                vec![
+                    vec![2, 2, 0, 0],
+                    vec![0, 2, 0, 0],
+                    vec![0, 2, 0, 0],
+                    vec![0, 0, 0, 0],
+                ],
+                vec![
+                    vec![0, 0, 2, 0],
+                    vec![2, 2, 2, 0],
+                    vec![0, 0, 0, 0],
+                    vec![0, 0, 0, 0],
+                ],
+                vec![
+                    vec![2, 0, 0, 0],
+                    vec![2, 0, 0, 0],
+                    vec![2, 2, 0, 0],
+                    vec![0, 0, 0, 0],
                 ],
             ],
             x: 4,
