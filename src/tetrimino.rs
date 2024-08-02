@@ -1,18 +1,18 @@
 type Piece = Vec<Vec<u8>>;
 type States = Vec<Piece>;
 
-struct Tetrimino {
+pub struct Tetrimino {
     states: States,
     x: isize,
     y: usize,
     current_state: u8,
 }
 
-trait TetriminoGenerator {
+pub trait TetriminoGenerator {
     fn new() -> Tetrimino;
 }
 
-struct TetriminoI;
+pub struct TetriminoI;
 //its looks like a snake
 impl TetriminoGenerator for TetriminoI {
     fn new() -> Tetrimino {
@@ -38,7 +38,7 @@ impl TetriminoGenerator for TetriminoI {
     }
 }
 
-struct TetriminoJ;
+pub struct TetriminoJ;
 //its just an J or a L depending on wich perspective is observed
 impl TetriminoGenerator for TetriminoJ {
     fn new() -> Tetrimino {
@@ -76,7 +76,7 @@ impl TetriminoGenerator for TetriminoJ {
     }
 }
 
-struct TetriminoL;
+pub struct TetriminoL;
 
 impl TetriminoGenerator for TetriminoL {
     fn new() -> Tetrimino {
@@ -114,7 +114,7 @@ impl TetriminoGenerator for TetriminoL {
     }
 }
 
-struct TetriminoO;
+pub struct TetriminoO;
 
 impl TetriminoGenerator for TetriminoO {
     fn new() -> Tetrimino {
@@ -133,7 +133,7 @@ impl TetriminoGenerator for TetriminoO {
     }
 }
 
-struct TetriminoS;
+pub struct TetriminoS;
 
 impl TetriminoGenerator for TetriminoS {
     fn new() -> Tetrimino {
@@ -158,7 +158,7 @@ impl TetriminoGenerator for TetriminoS {
         }
     }
 }
-struct TetriminoZ;
+pub struct TetriminoZ;
 
 impl TetriminoGenerator for TetriminoZ {
     fn new() -> Tetrimino {
@@ -184,7 +184,7 @@ impl TetriminoGenerator for TetriminoZ {
     }
 }
 
-struct TetriminoT;
+pub struct TetriminoT;
 
 impl TetriminoGenerator for TetriminoT {
     fn new() -> Tetrimino {
@@ -220,4 +220,4 @@ impl TetriminoGenerator for TetriminoT {
             current_state: 0,
         }
     }
-}
+} 
