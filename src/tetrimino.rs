@@ -132,3 +132,55 @@ impl TetriminoGenerator for TetriminoO {
         }
     }
 }
+
+struct TetriminoS;
+
+impl TetriminoGenerator for TetriminoS {
+    fn new() -> Tetrimino {
+        Tetrimino {
+            states: vec![
+                vec![
+                    vec![0, 5, 5, 0],
+                    vec![5, 5, 0, 0],
+                    vec![0, 0, 0, 0],
+                    vec![0, 0, 0, 0],
+                ],
+                vec![
+                    vec![0, 5, 0, 0],
+                    vec![0, 5, 0, 0],
+                    vec![0, 0, 5, 0],
+                    vec![0, 0, 5, 0],
+                ],
+            ],
+            x: 4,
+            y: 0,
+            current_state: 0,
+        }
+    }
+}
+struct TetriminoZ;
+
+impl TetriminoGenerator for TetriminoZ {
+    fn new() -> Tetrimino {
+        Tetrimino {
+            states: vec![
+                vec![
+                    vec![6, 6, 0, 0],
+                    vec![0, 6, 6, 0],
+                    vec![0, 0, 0, 0],
+                    vec![0, 0, 0, 0],
+                ],
+                vec![
+                    vec![0, 0, 6, 0],
+                    vec![0, 6, 6, 0],
+                    vec![0, 6, 0, 0],
+                    vec![0, 0, 0, 0],
+                ],
+            ],
+            x: 4,
+            y: 0,
+            current_state: 0,
+        }
+    }
+}
+
