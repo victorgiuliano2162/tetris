@@ -1,8 +1,10 @@
+extern crate rand;
 #[allow(unused, dead_code, unused_mut, unused_must_use)]
 extern crate sdl2;
 
 mod tetrimino;
 
+use rand::random;
 use sdl2::event::Event;
 use sdl2::image::{LoadTexture, INIT_JPG, INIT_PNG};
 use sdl2::keyboard::Keycode;
@@ -10,6 +12,7 @@ use sdl2::pixels::Color;
 use sdl2::rect::Rect;
 use sdl2::render::{Canvas, Texture, TextureCreator};
 use sdl2::video::{Window, WindowContext};
+use tetrimino::*;
 
 use std::fs::File;
 use std::io::{self, Read, Write};
@@ -18,12 +21,34 @@ use std::time::{Duration, SystemTime};
 
 const TEXTURE_SIZE: u32 = 32;
 
-
-
 #[derive(Clone, Copy)]
 enum TextureColor {
     Blue,
     Green,
+}
+
+fn create_new_tetrimino() -> Tetrimino {
+    static mut PREV: u8 = 7;
+    let mut rand_nb = rand::random::<u8>() % 7;
+
+    if unsafe { PREV } == rand_nb {
+        rand_nb = rand::random::<u8>() % 7;
+    }
+
+    unsafe {
+        PREV = rand_nb;
+    }
+
+    match rand_nb {
+        0 => TetriminoI::new(),
+        1 => TetriminoJ::new(),
+        2 => TetriminoL::new(),
+        3 => TetriminoO::new(),
+        4 => TetriminoS::new(),
+        5 => TetriminoZ::new(),
+        6 => TetriminoT::new(),
+        _ => unreachable!(),
+    }
 }
 
 fn create_texture_rect<'a>(
