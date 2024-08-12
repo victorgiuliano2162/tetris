@@ -12,6 +12,15 @@ pub trait TetriminoGenerator {
     fn new() -> Tetrimino;
 }
 
+impl Tetrimino {
+    fn rotate(&mut self) {
+        self.current_state += 1;
+        if self.current_state as usize >= self.states.len() {
+            self.current_state = 0;
+        }
+    }
+}
+
 pub struct TetriminoI;
 //its looks like a snake
 impl TetriminoGenerator for TetriminoI {
