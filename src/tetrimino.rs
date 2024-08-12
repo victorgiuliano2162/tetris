@@ -119,13 +119,12 @@ pub struct TetriminoO;
 impl TetriminoGenerator for TetriminoO {
     fn new() -> Tetrimino {
         Tetrimino {
-            states: vec![
-                vec![
-                    vec![4, 4, 0, 0],
-                    vec![4, 4, 0, 0],
-                    vec![0, 0, 0, 0],
-                    vec![0, 0, 0, 0],
-                ]],
+            states: vec![vec![
+                vec![4, 4, 0, 0],
+                vec![4, 4, 0, 0],
+                vec![0, 0, 0, 0],
+                vec![0, 0, 0, 0],
+            ]],
             x: 5,
             y: 0,
             current_state: 0,
@@ -220,4 +219,31 @@ impl TetriminoGenerator for TetriminoT {
             current_state: 0,
         }
     }
-} 
+}
+
+//rotate
+impl Tetrimino {
+    fn rotate(&mut self) {
+        self.current_state += 1;
+        if self.current_state as usize >= self.states.len() {
+            self.current_state = 0;
+        }
+    }
+
+    fn test_position(&self, game_map: &[Vec<u8>], tmp_state: usize, x: isize, y: usize) -> bool {
+        for decal_y in 0..4 {
+            for decal_x in 0..4 {
+                let x = x + decal_x;
+                if self.states[tmp_state][decal_y][decal_x as usize] != 0
+                    && (y + decal_y >= game_map.len()
+                        || x < 0
+                        || x as usize >= game_map[y + decal_y].len()
+                        || game_map[y + decal_y][x as usize] != 0)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
