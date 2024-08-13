@@ -1,4 +1,4 @@
-use crate::Tetrimino;
+use crate::{Tetrimino, TetriminoI};
 extern crate rand;
 
 struct Tetris {
@@ -24,5 +24,25 @@ impl Tetris {
         }
     }
 
-    pub fn
+    pub fn create_new_tetrimino(&self) -> Tetrimino {
+        static mut PREV: u8 = 7;
+        let mut rand_nb = rand::random::<u8>() % 7;
+
+        if unsafe { PREV } == rand_nb {
+            rand_nb = rand::random::<u8>() % 7;
+        }
+
+        unsafe { PREV == rand_nb; }
+
+        match rand_nb {
+            0 => TetriminoI::new(),
+            1 => TetriminoI::new(),
+            2 => TetriminoI::new(),
+            3 => TetriminoI::new(),
+            4 => TetriminoI::new(),
+            5 => TetriminoI::new(),
+            6 => TetriminoI::new(),
+            _ => TetriminoI::new(),
+        }
+    }
 }
