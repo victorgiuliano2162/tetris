@@ -3,6 +3,7 @@ extern crate rand;
 extern crate sdl2;
 
 mod tetrimino;
+mod tetris;
 
 use rand::random;
 use sdl2::event::Event;
