@@ -1,11 +1,11 @@
-extern crate rand;
 #[allow(unused, dead_code, unused_mut, unused_must_use)]
+extern crate rand;
 extern crate sdl2;
 
 mod tetrimino;
 mod tetris;
 
-use rand::random;
+
 use sdl2::event::Event;
 use sdl2::image::{LoadTexture, INIT_JPG, INIT_PNG};
 use sdl2::keyboard::Keycode;
