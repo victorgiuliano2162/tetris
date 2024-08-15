@@ -1,4 +1,4 @@
-use crate::{Tetrimino, TetriminoI};
+use crate::{Tetrimino, TetriminoGenerator, TetriminoI, TetriminoJ, TetriminoL, TetriminoO, TetriminoS, TetriminoT, TetriminoZ};
 extern crate rand;
 
 struct Tetris {
@@ -36,13 +36,13 @@ impl Tetris {
 
         match rand_nb {
             0 => TetriminoI::new(),
-            1 => TetriminoI::new(),
-            2 => TetriminoI::new(),
-            3 => TetriminoI::new(),
-            4 => TetriminoI::new(),
-            5 => TetriminoI::new(),
-            6 => TetriminoI::new(),
-            _ => TetriminoI::new(),
+            1 => TetriminoJ::new(),
+            2 => TetriminoL::new(),
+            3 => TetriminoO::new(),
+            4 => TetriminoS::new(),
+            5 => TetriminoZ::new(),
+            6 => TetriminoT::new(),
+            _ => unreachable!(),
         }
     }
 }
