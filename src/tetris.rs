@@ -45,4 +45,29 @@ impl Tetris {
             _ => unreachable!(),
         }
     }
+
+    fn check_lines(&mut self) {
+        let mut y =0;
+
+        while y < self.game_map.len() {
+            let mut complete = true;
+
+            for x in &self.game_map[y] {
+                if *x == 0 {
+                    complete = false;
+                    break;
+                }
+            }
+
+            if complete == true {
+                self.game_map.remove(y);
+                y -= 1;
+
+            }
+            y += 1;
+        }
+        while self.game_map.len() < 16 {
+            self.game_map.insert(0, vec![0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        }
+    }
 }
