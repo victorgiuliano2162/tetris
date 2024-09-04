@@ -154,7 +154,7 @@ impl TetriminoGenerator for TetriminoL {
                 vec![
                     vec![3, 3, 0, 0],
                     vec![3, 0, 0, 0],
-                    vec![3, 3, 0, 0],
+                    vec![3, 0, 0, 0],
                     vec![0, 0, 0, 0],
                 ],
             ],
